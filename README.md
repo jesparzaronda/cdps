@@ -7,7 +7,7 @@ Curso 2018-19.
 Creación de un escenario completo de despliegue de una aplicación fiable y escalable que
 integre los diversos contenidos impartidos en la asignatura.
 
-## Descripción
+### Descripción
 El objetivo de esta práctica es la implementación de la arquitectura completa para el
 despliegue de una aplicación de juegos sencilla de forma escalable y fiable. Como aplicación
 se utilizará proyecto QUIZ utilizado en la asignatura CORE. En la arquitectura de despliegue
