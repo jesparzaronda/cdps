@@ -13,4 +13,4 @@ despliegue de una aplicación de juegos sencilla de forma escalable y fiable. Co
 se utilizará proyecto QUIZ utilizado en la asignatura CORE. En la arquitectura de despliegue
 del proyecto se utilizarán los elementos típicos de las arquitecturas actuales: firewall,
 balanceador de carga, servidores front-end corriendo la aplicación, bases de datos y
-servidores de almacenamiento,
+servidores de almacenamiento.
