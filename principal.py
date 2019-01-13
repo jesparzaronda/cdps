@@ -22,13 +22,8 @@ def despliegue():
 	os.chdir("pfinal")
 	print(" ---- MAQUINA CREADA ----")
 
-	# Comprueba si es un ordenador del laboratorio o no.
-	if (re.match("/(l[0-9]{3})/", socket.gethostname())):
-		print(" ---- EJECUTANDO EN EL LABORATORIO ----")
-		os.system("./bin/prepare-pfinal-labo")
-	else:
-		print(" ---- EJECUTANDO DESDE UN PC ----")
-		os.system("./bin/prepare-pfinal-vm")
+	print(" ---- EJECUTANDO DESDE UN PC ----")
+	os.system("bin/prepare-pfinal-vm")
 
 	os.system("sudo vnx -f pfinal.xml -v --destroy")
 	os.system("sudo vnx -f pfinal.xml -v --create")
