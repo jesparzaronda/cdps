@@ -1,4 +1,8 @@
 #!/usr/bin/python
+# -*- coding: latin-1 -*-
+
+import sys
+import os
 
 os.system("sudo apt-get update")
 os.system("sudo apt-get -y install mariadb-server")
