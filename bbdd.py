@@ -4,6 +4,8 @@
 import sys
 import os
 
+print(" ---- INSTALANDO MARIADB-SERVER ----")
+
 os.system("sudo apt-get update")
 os.system("sudo apt-get -y install mariadb-server")
 os.system("sudo sed -i -e 's/bind-address.*/bind-address=0.0.0.0/' -e 's/utf8mb4/utf8/' /etc/mysql/mariadb.conf.d/50-server.cnf")
@@ -16,3 +18,5 @@ os.system("sudo mysql -u root --password='xxxx' -e \"GRANT ALL PRIVILEGES ON qui
 os.system("sudo mysql -u root --password='xxxx' -e \"FLUSH PRIVILEGES;\"")
 
 os.system("sudo systemctl restart mysql")
+
+print(" ---- FIN INSTALACION MARIADB-SERVER ----")
