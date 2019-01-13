@@ -118,10 +118,10 @@ def despliegue():
 	
 	i = 0
 	while(i < 2):
-		os.system("sudo lxc-attach --clear-env -n fw -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/firewall.fw")
+		os.system("sudo lxc-attach --clear-env -n fw -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/fw.fw")
 		i = i + 1
-	os.system("sudo lxc-attach --clear-env -n fw -- sh /firewall.fw")
-	os.system("sudo lxc-attach --clear-env -n fw -- rm /firewall.fw.*")
+	os.system("sudo lxc-attach --clear-env -n fw -- sh /fw.fw")
+	os.system("sudo lxc-attach --clear-env -n fw -- rm /fw.fw.*")
 	print(" ---- FIN DE CONFIGURACION DE FIREWALL ----")
 
 	return
