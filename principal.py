@@ -31,13 +31,9 @@ def despliegue():
 
 
 
-	print(" ---- CONFIGURACION DE SERVIDOR BASE DE DATOS ----")
-	i = 0
-	while(i < 2):
-		os.system("sudo lxc-attach --clear-env -n bbdd -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/bbdd.py")
-		i = i + 1
+	print(" ---- CONFIGURACION DE SERVIDOR BASE DE DATOS ----")	
+	os.system("sudo lxc-attach --clear-env -n bbdd -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/bbdd.py")		
 	os.system("sudo lxc-attach --clear-env -n bbdd -- python /bbdd.py")
-	os.system("sudo lxc-attach --clear-env -n bbdd -- rm /bbdd.py*")
 
 	print(" ---- FINAL CONFIGURACION DE SERVIDOR BASE DE DATOS ----")
 
@@ -45,15 +41,14 @@ def despliegue():
 
 
 	print(" ---- CONFIGURACION DE GLUSTERFS DE ALMACENAMIENTO ----")
-	n=3 
-	while (n > 0):
-		i = 0
-		while(i < 2):
-			os.system("sudo lxc-attach --clear-env -n nas" +str(n)+ " -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/cluster.py")
-			i = i + 1
-		os.system("sudo lxc-attach --clear-env -n nas" +str(n)+ " -- python /cluster.py")
-		os.system("sudo lxc-attach --clear-env -n nas" +str(n)+ " -- rm /cluster.py*")
-		n=n-1
+	
+	os.system("sudo lxc-attach --clear-env -n nas1 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/cluster.py")
+	os.system("sudo lxc-attach --clear-env -n nas2 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/cluster.py")
+	os.system("sudo lxc-attach --clear-env -n nas3 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/cluster.py")
+
+	os.system("sudo lxc-attach --clear-env -n nas1 -- python /cluster.py")
+	os.system("sudo lxc-attach --clear-env -n nas2 -- python /cluster.py")
+	os.system("sudo lxc-attach --clear-env -n nas3 -- python /cluster.py")
 	#Instalacion gluster 
 	os.system("sudo lxc-attach --clear-env -n nas1 -- gluster peer probe nas2")
 	time.sleep(3)
@@ -78,49 +73,48 @@ def despliegue():
 
 
 	print(" ---- INICIO CONFIGURACION QUIZ ----")
-	n = 3
-	while (n > 0):
-		i = 0
-		while(i < 2):
-			os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/node.py")
-			i = i + 1
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- python /node.py")
+	os.system("sudo lxc-attach --clear-env -n s1 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/node.py")
+	os.system("sudo lxc-attach --clear-env -n s2 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/node.py")
+	os.system("sudo lxc-attach --clear-env -n s3 -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/node.py")
+	os.system("sudo lxc-attach --clear-env -n s1 -- python /node.py")
+	os.system("sudo lxc-attach --clear-env -n s2 -- python /node.py")
+	os.system("sudo lxc-attach --clear-env -n s3 -- python /node.py")
 
-		print(" ---- CLONACION DEL QUIZ ----")
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- git clone https://github.com/CORE-UPM/quiz_2019.git")
+	print(" ---- CLONACION DEL QUIZ ----")
+	os.system("sudo lxc-attach --clear-env -n s1 -- git clone https://github.com/CORE-UPM/quiz_2019.git")
+	os.system("sudo lxc-attach --clear-env -n s2 -- git clone https://github.com/CORE-UPM/quiz_2019.git")
+	os.system("sudo lxc-attach --clear-env -n s3 -- git clone https://github.com/CORE-UPM/quiz_2019.git")
 
-		print(" ---- INICIO INSTALACION NPM ----")
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \" cd quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
-		print(" ---- FIN INSTALACION NPM ----")
+	print(" ---- INICIO INSTALACION NPM ----")
+	os.system("sudo lxc-attach --clear-env -n s1 -- bash -c \" cd /quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
+	os.system("sudo lxc-attach --clear-env -n s2 -- bash -c \" cd /quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
+	os.system("sudo lxc-attach --clear-env -n s3 -- bash -c \" cd /quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
+	print(" ---- FIN INSTALACION NPM ----")
+	os.system("sudo lxc-attach --clear-env -n s1 -- bash -c \" cd /quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; npm run-script migrate_cdps ; npm run-script seed_cdps; ./node_modules/forever/bin/forever start ./bin/www \"")
+	os.system("sudo lxc-attach --clear-env -n s2 -- bash -c \" cd /quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; ./node_modules/forever/bin/forever start ./bin/www \"")
+	os.system("sudo lxc-attach --clear-env -n s3 -- bash -c \" cd /quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; ./node_modules/forever/bin/forever start ./bin/www \"")
 
-		if n==1:
-			os.system("sudo lxc-attach --clear-env -n s1 -- bash -c \" cd quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; npm run-script migrate_cdps ; npm run-script seed_cdps; ./node_modules/forever/bin/forever start ./bin/www \"")
-		else:
-			os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \" cd /quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; ./node_modules/forever/bin/forever start ./bin/www \"")
-
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3000")
+		os.system("sudo lxc-attach --clear-env -n s1 -- sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3000")
+		os.system("sudo lxc-attach --clear-env -n s2 -- sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3000")
+		os.system("sudo lxc-attach --clear-env -n s3 -- sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3000")
 		
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- rm /node.py*")
+		
 		
 		#Configuracion del sistema de ficheros NAS en servidores
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mount -t glusterfs 20.2.4.2" +str(n)+ ":/nas /quiz_2019/public/uploads")
-		print(" ---- directorio de imágenes creado en s" +str(n)+ " ----")
+		os.system("sudo lxc-attach --clear-env -n s1 -- mount -t glusterfs 20.2.4.21:/nas /quiz_2019/public/uploads")
+		os.system("sudo lxc-attach --clear-env -n s2 -- mount -t glusterfs 20.2.4.22:/nas /quiz_2019/public/uploads")
+		os.system("sudo lxc-attach --clear-env -n s3 -- mount -t glusterfs 20.2.4.23:/nas /quiz_2019/public/uploads")
 
-		n = n -1
+		
 	print(" ---- FIN CONFIGURACION DEL QUIZ ----")
 
 	#Configuracion de lb 
 	os.system(" xterm -hold -e 'sudo lxc-attach --clear-env -n lb -- xr --verbose --server tcp:0:80 -dr -S --backend 20.2.3.11:80 --backend 20.2.3.12:80 --backend 20.2.3.13:80 --web-interface 0:8001' &")
 
 	print(" ---- CONFIGURACION DE FIREWALL ----")
-	# Configuracion de FW desde la carpeta PracticaFinal 
-	
-	i = 0
-	while(i < 2):
-		os.system("sudo lxc-attach --clear-env -n fw -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/fw.fw")
-		i = i + 1
+	# Configuracion de FW desde la carpeta PracticaFinal 		
+	os.system("sudo lxc-attach --clear-env -n fw -- wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/fw.fw")		
 	os.system("sudo lxc-attach --clear-env -n fw -- sh /fw.fw")
-	os.system("sudo lxc-attach --clear-env -n fw -- rm /fw.fw.*")
 	print(" ---- FIN DE CONFIGURACION DE FIREWALL ----")
 
 	return
