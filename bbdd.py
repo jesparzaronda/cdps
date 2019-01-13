@@ -1,11 +1,4 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
-
-os.system("sudo apt-get update")
-os.system("sudo apt-get upgrade")
-os.system("sudo apt-get install software-properties-common")
-os.system("ssudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8")
-os.system("sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://tedeco.fi.upm.es/mirror/mariadb/repo/10.1/ubuntu bionic main'")
 
 os.system("sudo apt-get update")
 os.system("sudo apt-get -y install mariadb-server")
