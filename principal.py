@@ -90,7 +90,7 @@ def despliegue():
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- git clone https://github.com/CORE-UPM/quiz_2019.git")
 
 		print(" ---- INICIO INSTALACION NPM ----")
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \"cd quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
+		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \" cd quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
 		print(" ---- FIN INSTALACION NPM ----")
 
 		if n==1:
@@ -103,7 +103,6 @@ def despliegue():
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- rm /node.py*")
 		
 		#Configuracion del sistema de ficheros NAS en servidores
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mkdir /quiz_2019/public/uploads")
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mount -t glusterfs 20.2.4.2" +str(n)+ ":/nas /quiz_2019/public/uploads")
 		print(" ---- directorio de imágenes creado en s" +str(n)+ " ----")
 
