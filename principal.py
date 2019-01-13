@@ -13,8 +13,8 @@ def despliegue():
 		os.system("sudo rm -rf ProyectoFinal")
 
 	print(" ---- CREANDO CARPETA ----")
-	os.system("mkdir PracticaFinal")
-	os.chdir("PracticaFinal")
+	os.system("mkdir ProyectoFinal")
+	os.chdir("ProyectoFinal")
 	print(" ---- DESCARGA DE LA MAQUINA ----")
 	os.system("wget http://idefix.dit.upm.es/cdps/pfinal/pfinal.tgz")
 	print(" ---- DESCOMPRIMIENDO ARCHIVOS ----")
