@@ -90,21 +90,21 @@ def despliegue():
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- git clone https://github.com/CORE-UPM/quiz_2019.git")
 
 		print(" ---- INICIO INSTALACION NPM ----")
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \"cd QUIZ_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
+		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \"cd quiz_2019; mkdir public/uploads; npm install; npm install forever;npm install mysql2\"")
 		print(" ---- FIN INSTALACION NPM ----")
 
 		if n==1:
-			os.system("sudo lxc-attach --clear-env -n s1 -- bash -c \" cd /QUIZ_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; npm run-script migrate_cdps ; npm run-script seed_cdps; ./node_modules/forever/bin/forever start ./bin/www \"")
+			os.system("sudo lxc-attach --clear-env -n s1 -- bash -c \" cd quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; npm run-script migrate_cdps ; npm run-script seed_cdps; ./node_modules/forever/bin/forever start ./bin/www \"")
 		else:
-			os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \" cd /QUIZ_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; ./node_modules/forever/bin/forever start ./bin/www \"")
+			os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- bash -c \" cd /quiz_2019; export QUIZ_OPEN_REGISTER=yes; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz; ./node_modules/forever/bin/forever start ./bin/www \"")
 
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 3000")
 		
 		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- rm /node.py*")
 		
 		#Configuracion del sistema de ficheros NAS en servidores
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mkdir /QUIZ_2019/public/uploads")
-		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mount -t glusterfs 20.2.4.2" +str(n)+ ":/nas /QUIZ_2019/public/uploads")
+		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mkdir /quiz_2019/public/uploads")
+		os.system("sudo lxc-attach --clear-env -n s" +str(n)+ " -- mount -t glusterfs 20.2.4.2" +str(n)+ ":/nas /quiz_2019/public/uploads")
 		print(" ---- directorio de imágenes creado en s" +str(n)+ " ----")
 
 		n = n -1
