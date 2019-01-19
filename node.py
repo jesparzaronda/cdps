@@ -5,10 +5,7 @@ import sys
 import os
 import socket
 
-print(" ---- ACTUALIZANDO REPOSITORIOS ----")
-os.system("apt update")
-print(" ---- DESCARGANDO DEPENDENCIAS DE NODEJS ----")
-os.system("curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -")
 print(" ---- INSTALANDO NODEJS ----")
-os.system("sudo apt-get install nodejs")
+os.system("sudo apt-get install nodejs npm")
+os.system("sudo apt-get install -y build-essential")
 print(" ---- FIN INSTALACION NODEJS ----")
