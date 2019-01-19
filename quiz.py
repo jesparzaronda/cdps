@@ -7,6 +7,7 @@ import socket
 
 
 print(" ---- CLONACION DEL QUIZ ----")
+os.system("cd root")
 os.system("git clone https://github.com/CORE-UPM/quiz_2019.git")
 
 print(" ---- INICIO INSTALACION NPM ----")
