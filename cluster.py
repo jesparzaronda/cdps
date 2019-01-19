@@ -5,6 +5,8 @@ import sys
 import os
 import socket
 
-os.system(" sudo echo \"20.2.4.21 nas1\" >> /etc/hosts ")
-os.system(" sudo echo \"20.2.4.22 nas2\" >> /etc/hosts ")
-os.system(" sudo echo \"20.2.4.23 nas3\" >> /etc/hosts ")
+#Instalacion gluster 
+os.system("gluster peer probe 20.2.4.22")
+os.system("gluster peer probe 20.2.4.23")
+os.system("gluster volume create nas replica 3 20.2.4.21:/nas 20.2.4.22:/nas 20.2.4.23:/nas force")
+os.system("gluster volume start nas")
