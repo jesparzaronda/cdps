@@ -14,6 +14,6 @@ balanceador de carga, servidores front-end corriendo la aplicación, bases de da
 servidores de almacenamiento.
 
 ### Instalación
-
-wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/principal.py
-sudo python principal.py create
+Para isntalar el programa ejecutamos en un terminal estas sentencias:
+##### wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/principal.py
+##### sudo python principal.py create
