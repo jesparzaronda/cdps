@@ -1,5 +1,3 @@
-Script principal que realiza todo el despliegue de la aplicación.
-
 ## Centros de Datos y de Provisión de Servicios
 Curso 2018-19.
 
@@ -14,3 +12,8 @@ se utilizará proyecto QUIZ utilizado en la asignatura CORE. En la arquitectura 
 del proyecto se utilizarán los elementos típicos de las arquitecturas actuales: firewall,
 balanceador de carga, servidores front-end corriendo la aplicación, bases de datos y
 servidores de almacenamiento.
+
+### Instalación
+
+wget https://raw.githubusercontent.com/jesparzaronda/cdps/master/principal.py
+sudo python principal.py create
