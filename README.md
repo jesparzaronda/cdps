@@ -1,5 +1,5 @@
 ## Centros de Datos y de Provisión de Servicios
-Curso 2018-19.
+Curso 2018-19. Julio Langtry y José Esparza
 
 ### Objetivo
 Creación de un escenario completo de despliegue de una aplicación fiable y escalable que
